@@ -7,5 +7,7 @@
 
 void affiche(const int&);
 void sort(Cartes *tab,int nb);
-
+void wait();
+void fullsize();
+void normalsize();
 #endif

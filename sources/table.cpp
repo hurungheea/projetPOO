@@ -15,11 +15,11 @@ Table::Table()
         throw _nbrJ;
       }
       if(_nbrJ < 2 || _nbrJ >10)
-          cerr<<"Le nombre de joueurs doit être comprit entre 2 et 10\n";
+          cerr<<"\033[1;31mLe nombre de joueurs doit être comprit entre 2 et 10\033[0m\n";
     }
     catch(int e)
     {
-      cerr<<"Entrez un entier\n";
+      cerr<<"\033[1;31mEntrez un entier\033[0m\n";
     }
   }while(_nbrJ<2 || _nbrJ>10);
   this->_nbJ = new Joueurs[_nbrJ];
@@ -41,9 +41,11 @@ void Table::partie()
     affiche(tour);
     this->afficheBoard();
     for(int i=0;i<_nbrJ;i++)
+    {
       cout<<_nbJ[i];
+      this->combinaison(_nbJ[i]);
+    }
     this->distriBoard(tour);
-
   }
 }
 
@@ -70,15 +72,15 @@ void Table::distriBoard(const int &tour)
 
 void Table::afficheBoard()
 {
-  cout<<"Board :"<<endl;
+  cout<<"\033[1;34m Board :\033[0m"<<endl;
   int nb = getNbCBoard();
   if(nb == 0)
-    cout<<"\taucune carte\n";
+    cout<<"\t\033[1;31maucune carte\033[0m\n";
   else
-    cout<<"\t"<<nb<<" carte(s) : ";
+    cout<<"\t\033[1;33m"<<nb<<" carte(s) : \033[0m";
   for(int i = 0;i<nb;i++)
   {
-    cout<<_board[i];
+    cout<<"\033[1;34m "<<_board[i]<<"\033[0m ";
   }
 }
 
@@ -97,32 +99,49 @@ int Table::getNbCBoard() const
 
 void Table::combinaison(const Joueurs &j)
 {
-  /*
-  tab[0].setCoul(0);
-  tab[0].setHauteur(1);
-  tab[1].setCoul(1);
-  tab[1].setHauteur(1);
-  tab[2].setCoul(0);
-  tab[2].setHauteur(6);
-  tab[3].setCoul(0);
-  tab[3].setHauteur(10);
-  tab[4].setCoul(1);
-  tab[4].setHauteur(7);
-  tab[5].setCoul(1);
-  tab[5].setHauteur(9);
-  tab[6].setCoul(1);
-  tab[6].setHauteur(10);
-  cout<<this->estDoublePaire(tab,2+nb)<<"\n";
-  */
-  int nb = this->getNbCBoard();
   Cartes tab[7];
+  int nb = this->getNbCBoard();
   int i;
   for(i=0;i<2;i++)
     tab[i]=j._main[i];
   for(int i=0;i<nb;i++)
     tab[i+2]=_board[i];
+  cout<<"\t\033[1;33m"<<(nb+2)<<" carte(s) : \033[1;32m";
+  for(int i = 0;i<2+nb;i++)
+  {
+    if(i>1)
+      cout<<"\033[1;34m";
+    cout<<tab[i];
+  }
+  cout<<"\033[0m"<<endl;
   sort(tab,2+nb);
+  cout<<"\t\033[1;33mCombinaison : \033[1;35m";
+  if(estQFlushRoyal(tab,2+nb))
+    cout<<" Quinte Flush Royal\n";
+  else if(estQFlush(tab,2+nb))
+    cout<<" Quinte Flush\n";
+  else if(estCarre(tab,2+nb))
+    cout<<" Carre\n";
+  else if(estFullHouse(tab,2+nb))
+    cout<<" Full House\n";
+  else if(estCouleur(tab,2+nb))
+    cout<<" Couleur\n";
+  else if(estQuinte(tab,2+nb))
+    cout<<" Suite\n";
+  else if(estBrelan(tab,2+nb))
+    cout<<" Brelan\n";
+  else if(estDoublePaire(tab,2+nb))
+    cout<<" Double Paires\n";
+  else if(estPaire(tab,2+nb))
+    cout<<" Paire\n";
+  else
+    cout<<" Rien d'interessant\n";
+
+  cout<<"\t\033[1;33mHauteur : \033[1;35m";
+  estHauteur(tab,2+nb);
+  cout<<"\033[0m"<<endl;
 }
+
 
 bool Table::estQFlushRoyal(const Cartes *tab,int nb)
 {
@@ -269,9 +288,9 @@ bool Table::estPaire(const Cartes *tab,int nb)
   return false;
 }
 
-int Table::estHauteur(const Cartes *tab,int nb)
+void Table::estHauteur(const Cartes *tab,int nb)
 {
-  return tab[nb-1].getHauteur();
+  cout<<tab[nb-1];
 }
 
 int Table::getNbrJ() const

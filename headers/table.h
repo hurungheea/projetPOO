@@ -38,6 +38,6 @@ public:
   bool estBrelan(const Cartes *tab,int nb);
   bool estDoublePaire(const Cartes *tab,int nb);
   bool estPaire(const Cartes *tab,int nb);
-  int estHauteur(const Cartes *tab,int nb);
+  void estHauteur(const Cartes *tab,int nb);
 };
 #endif
