@@ -1,3 +1,6 @@
+/**********************************************
+*    Fichier : cartes.cpp
+***********************************************/
 #include "../headers/cartes.h"
 //Utilisation de l'espace de nomage STD afin de ne pas taper std::
 using namespace std;
@@ -8,7 +11,11 @@ Cartes::Cartes()
   this->_hauteur = -1;
 }
 //Constructeurs surcharger d'une Carte
-Cartes::Cartes(int coul,int haut):_couleur(coul),_hauteur(haut){}
+Cartes::Cartes(const Cartes &c)
+{
+  this->_couleur = c.getCoul();
+  this->_hauteur = c.getHauteur();
+}
 //Destructeurs de ma classe cartes
 Cartes::~Cartes()
 {

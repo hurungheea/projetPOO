@@ -23,7 +23,7 @@ private:
 public:
   //Constructeurs & Destructeurs de la classe
   Cartes();
-  Cartes(int,int);
+  Cartes(const Cartes &);
   ~Cartes();
   // Les GETTERS
   int getCoul() const;
