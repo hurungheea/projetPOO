@@ -1,2 +1,3 @@
 # Command Line Interface Poker Game
-###### Réaliser dans le cadre d'un projet scolaire en c++. Documentation à venir ...
+###### Ce jeu a été créé afin de valider nos aquis lors du module POO (Programmation Orienté Objet)
+`Documentation à venir`
